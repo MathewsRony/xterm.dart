@@ -387,6 +387,7 @@ class TerminalViewState extends State<TerminalView> {
       event,
     );
 
+    debugPrint("_onKeyEvent start");
     debugPrint("******************001 ${event.logicalKey.keyLabel}");
 
     if (shortcutResult != KeyEventResult.ignored) {

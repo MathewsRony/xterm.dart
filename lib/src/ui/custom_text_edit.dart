@@ -209,8 +209,10 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
 
   @override
   void updateEditingValue(TextEditingValue value) {
+    debugPrint("##########updateEditingValue");
     _currentEditingState = value;
 
+    debugPrint("##########001 ${value.text}");
     // Get input after composing is done
     if (!_currentEditingState.composing.isCollapsed) {
       final text = _currentEditingState.text;
@@ -222,12 +224,14 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
     widget.onComposing(null);
 
     if (_currentEditingState.text.length < _initEditingState.text.length) {
+      debugPrint("##########002 ${value.text}");
       widget.onDelete();
     } else {
+      debugPrint("##########003 ${value.text}");
       final textDelta = _currentEditingState.text.substring(
         _initEditingState.text.length,
       );
-
+      debugPrint("##########004 ${value.text}");
       widget.onInsert(textDelta);
     }
 
