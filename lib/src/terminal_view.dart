@@ -395,11 +395,14 @@ class TerminalViewState extends State<TerminalView> {
       return KeyEventResult.ignored;
     }
 
+    debugPrint("******************001 ${event.logicalKey.keyLabel}");
     final key = keyToTerminalKey(event.logicalKey);
 
     if (key == null) {
       return KeyEventResult.ignored;
     }
+
+    debugPrint("******************002 ${key.name}");
 
     final handled = widget.terminal.keyInput(
       key,
