@@ -135,6 +135,8 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
   }
 
   KeyEventResult _onKey(FocusNode focusNode, RawKeyEvent event) {
+    debugPrint("inside the custom text edit onKey ====");
+    debugPrint("event ==== ${event.data.logicalKey.keyLabel}");
     if (_currentEditingState.composing.isCollapsed) {
       return widget.onKey(focusNode, event);
     }
@@ -257,7 +259,7 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
   @override
   void updateFloatingCursor(RawFloatingCursorPoint point) {
     debugPrint("inside the AAAA BBBB");
-    print('updateFloatingCursor $point');
+    print('updateFloatingCursor ${point.offset}');
   }
 
   @override
@@ -282,6 +284,7 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
 
   @override
   void removeTextPlaceholder() {
+    debugPrint("inside the remove place holder condition");
     // print('removeTextPlaceholder');
   }
 
