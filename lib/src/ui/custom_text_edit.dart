@@ -112,6 +112,7 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
   }
 
   void setEditingState(TextEditingValue value) {
+    debugPrint("value ==== ${value.composing}");
     _currentEditingState = value;
     _connection?.setEditingState(value);
   }
@@ -210,7 +211,10 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
   @override
   void updateEditingValue(TextEditingValue value) {
     debugPrint("##########updateEditingValue");
-    _currentEditingState = value;
+    _currentEditingState = value.copyWith(
+      selection: const TextSelection.collapsed(offset: -1),
+      composing: TextRange.empty,
+    );
 
     debugPrint("##########001 ${value.text}");
     // Get input after composing is done
@@ -224,9 +228,11 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
     widget.onComposing(null);
 
     if (_currentEditingState.text.length < _initEditingState.text.length) {
+      debugPrint("inside the B Condition");
       debugPrint("##########002 ${value.text}");
       widget.onDelete();
     } else {
+      debugPrint("inside the C Condition");
       debugPrint("##########003 ${value.text}");
       final textDelta = _currentEditingState.text.substring(
         _initEditingState.text.length,
@@ -250,7 +256,8 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
 
   @override
   void updateFloatingCursor(RawFloatingCursorPoint point) {
-    // print('updateFloatingCursor $point');
+    debugPrint("inside the AAAA BBBB");
+    print('updateFloatingCursor $point');
   }
 
   @override

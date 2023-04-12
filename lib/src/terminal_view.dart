@@ -216,28 +216,34 @@ class TerminalViewState extends State<TerminalView> {
 
   @override
   Widget build(BuildContext context) {
-    Widget child = Scrollable(
-      key: _scrollableKey,
-      controller: _scrollController,
-      viewportBuilder: (context, offset) {
-        return _TerminalView(
-          key: _viewportKey,
-          terminal: widget.terminal,
-          controller: _controller,
-          offset: offset,
-          padding: MediaQuery.of(context).padding,
-          autoResize: widget.autoResize,
-          textStyle: widget.textStyle,
-          textScaleFactor:
-              widget.textScaleFactor ?? MediaQuery.textScaleFactorOf(context),
-          theme: widget.theme,
-          focusNode: _focusNode,
-          cursorType: widget.cursorType,
-          alwaysShowCursor: widget.alwaysShowCursor,
-          onEditableRect: _onEditableRect,
-          composingText: _composingText,
-        );
-      },
+    Widget child = Column(
+      children: [
+        Expanded(
+          child: Scrollable(
+            key: _scrollableKey,
+            controller: _scrollController,
+            viewportBuilder: (context, offset) {
+              return _TerminalView(
+                key: _viewportKey,
+                terminal: widget.terminal,
+                controller: _controller,
+                offset: offset,
+                padding: MediaQuery.of(context).padding,
+                autoResize: widget.autoResize,
+                textStyle: widget.textStyle,
+                textScaleFactor: widget.textScaleFactor ??
+                    MediaQuery.textScaleFactorOf(context),
+                theme: widget.theme,
+                focusNode: _focusNode,
+                cursorType: widget.cursorType,
+                alwaysShowCursor: widget.alwaysShowCursor,
+                onEditableRect: _onEditableRect,
+                composingText: _composingText,
+              );
+            },
+          ),
+        ),
+      ],
     );
 
     child = TerminalScrollGestureHandler(
@@ -368,7 +374,6 @@ class TerminalViewState extends State<TerminalView> {
     // generate hardware key events. So we need first try to send the key
     // as a hardware key event. If it fails, then we send it as a text input.
     final consumed = key == null ? false : widget.terminal.keyInput(key);
-
     if (!consumed) {
       widget.terminal.textInput(text);
     }

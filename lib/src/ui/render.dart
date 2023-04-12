@@ -57,6 +57,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   Terminal _terminal;
+
   set terminal(Terminal terminal) {
     if (_terminal == terminal) return;
     if (attached) _terminal.removeListener(_onTerminalChange);
@@ -67,6 +68,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   TerminalController _controller;
+
   set controller(TerminalController controller) {
     if (_controller == controller) return;
     if (attached) _controller.removeListener(_onControllerUpdate);
@@ -76,6 +78,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   ViewportOffset _offset;
+
   set offset(ViewportOffset value) {
     if (value == _offset) return;
     if (attached) _offset.removeListener(_onScroll);
@@ -85,6 +88,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   EdgeInsets _padding;
+
   set padding(EdgeInsets value) {
     if (value == _padding) return;
     _padding = value;
@@ -92,6 +96,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   bool _autoResize;
+
   set autoResize(bool value) {
     if (value == _autoResize) return;
     _autoResize = value;
@@ -99,6 +104,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   TerminalStyle _textStyle;
+
   set textStyle(TerminalStyle value) {
     if (value == _textStyle) return;
     _textStyle = value;
@@ -108,6 +114,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   double _textScaleFactor;
+
   set textScaleFactor(double value) {
     if (value == _textScaleFactor) return;
     _textScaleFactor = value;
@@ -116,6 +123,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   TerminalTheme _theme;
+
   set theme(TerminalTheme value) {
     if (value == _theme) return;
     _theme = value;
@@ -124,6 +132,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   FocusNode _focusNode;
+
   set focusNode(FocusNode value) {
     if (value == _focusNode) return;
     if (attached) _focusNode.removeListener(_onFocusChange);
@@ -133,6 +142,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   TerminalCursorType _cursorType;
+
   set cursorType(TerminalCursorType value) {
     if (value == _cursorType) return;
     _cursorType = value;
@@ -140,6 +150,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   bool _alwaysShowCursor;
+
   set alwaysShowCursor(bool value) {
     if (value == _alwaysShowCursor) return;
     _alwaysShowCursor = value;
@@ -147,6 +158,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   EditableRectCallback? _onEditableRect;
+
   set onEditableRect(EditableRectCallback? value) {
     if (value == _onEditableRect) return;
     _onEditableRect = value;
@@ -154,6 +166,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   }
 
   String? _composingText;
+
   set composingText(String? value) {
     if (value == _composingText) return;
     _composingText = value;
@@ -441,6 +454,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
       final cursorOffset = offset + _cursorOffset;
 
       if (_isComposingText) {
+        debugPrint("13256####");
         _paintComposingText(canvas, cursorOffset);
       }
 
@@ -461,6 +475,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
 
   /// Paints the cursor based on the current cursor type.
   void _paintCursor(Canvas canvas, Offset offset) {
+    debugPrint("inside the paint cursor AAA");
     final paint = Paint()
       ..color = _theme.cursor
       ..strokeWidth = 1;
@@ -494,8 +509,10 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   /// Paints the text that is currently being composed in IME to [canvas] at
   /// [offset]. [offset] is usually the cursor position.
   void _paintComposingText(Canvas canvas, Offset offset) {
+    debugPrint("inside the paintComposing texdt ===");
+    debugPrint("offset dx ==== ${offset.dx}");
+    debugPrint("offset dy ==== ${offset.dy}");
     final composingText = _composingText;
-
     if (composingText == null) {
       return;
     }
