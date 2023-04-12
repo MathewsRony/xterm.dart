@@ -264,6 +264,7 @@ class TerminalViewState extends State<TerminalView> {
         deleteDetection: widget.deleteDetection,
         onInsert: _onInsert,
         onDelete: () {
+          debugPrint("inside the on deleted");
           _scrollToBottom();
           widget.terminal.keyInput(TerminalKey.backspace);
         },
@@ -386,6 +387,7 @@ class TerminalViewState extends State<TerminalView> {
   }
 
   KeyEventResult _onKeyEvent(FocusNode focusNode, RawKeyEvent event) {
+    debugPrint("inside the on Key EVent=======asdadasdas");
     // ignore: invalid_use_of_protected_member
     final shortcutResult = _shortcutManager.handleKeypress(
       focusNode.context!,
