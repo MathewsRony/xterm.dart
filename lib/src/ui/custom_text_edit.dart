@@ -87,20 +87,15 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
+    return Focus(
       focusNode: widget.focusNode,
-      child: widget.child,
       autofocus: widget.autofocus,
-      onKey: (event) {
-        _handleKeyEvent(event);
+      onKey: _onKey,
+      child: widget.child,
+      onKeyEvent: (focus, event) {
+        return _onKeyy(focus, event);
       },
     );
-    //   Focus(
-    //   focusNode: widget.focusNode,
-    //   autofocus: widget.autofocus,
-    //   onKey: _onKey,
-    //   child: widget.child,
-    // );
   }
 
   void _handleKeyEvent(RawKeyEvent event) {
@@ -163,6 +158,18 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
     if (_currentEditingState.composing.isCollapsed) {
       return widget.onKey(focusNode, event);
     }
+
+    return KeyEventResult.skipRemainingHandlers;
+  }
+
+  KeyEventResult _onKeyy(FocusNode focusNode, KeyEvent event) {
+    debugPrint("inside the custom text edit onKey 2222 ====");
+    debugPrint("onKeyy event ==== ${event.logicalKey.keyId}");
+    debugPrint("onKeyy event ==== ${event.physicalKey.debugName}");
+    // debugPrint("event ==== ${event.data.logicalKey.keyLabel}");
+    // if (_currentEditingState.composing.isCollapsed) {
+    //   return widget.onKey(focusNode, event);
+    // }
 
     return KeyEventResult.skipRemainingHandlers;
   }
