@@ -22,8 +22,7 @@ import 'package:xterm/src/ui/terminal_theme.dart';
 import 'package:xterm/src/ui/themes.dart';
 
 class TerminalView extends StatefulWidget {
-  const TerminalView(
-    this.terminal, {
+  TerminalView(this.terminal, {
     Key? key,
     this.controller,
     this.theme = TerminalThemes.defaultTheme,
@@ -48,6 +47,7 @@ class TerminalView extends StatefulWidget {
     this.readOnly = false,
     this.hardwareKeyboardOnly = false,
     this.simulateScroll = true,
+    this.scrollableKey,
   }) : super(key: key);
 
   /// The underlying terminal that this widget renders.
@@ -140,6 +140,8 @@ class TerminalView extends StatefulWidget {
   /// emulators. True by default.
   final bool simulateScroll;
 
+  final GlobalKey<ScrollableState>? scrollableKey;
+
   @override
   State<TerminalView> createState() => TerminalViewState();
 }
@@ -151,7 +153,7 @@ class TerminalViewState extends State<TerminalView> {
 
   final _customTextEditKey = GlobalKey<CustomTextEditState>();
 
-  final _scrollableKey = GlobalKey<ScrollableState>();
+  late GlobalKey<ScrollableState> _scrollableKey;
 
   final _viewportKey = GlobalKey();
 
@@ -160,6 +162,7 @@ class TerminalViewState extends State<TerminalView> {
   late TerminalController _controller;
 
   late ScrollController _scrollController;
+
 
   RenderTerminal get renderTerminal =>
       _viewportKey.currentContext!.findRenderObject() as RenderTerminal;
@@ -172,6 +175,7 @@ class TerminalViewState extends State<TerminalView> {
     _shortcutManager = ShortcutManager(
       shortcuts: widget.shortcuts ?? defaultTerminalShortcuts,
     );
+    _scrollableKey = widget.scrollableKey ?? GlobalKey<ScrollableState>();
     super.initState();
   }
 
@@ -264,7 +268,6 @@ class TerminalViewState extends State<TerminalView> {
         deleteDetection: widget.deleteDetection,
         onInsert: _onInsert,
         onDelete: () {
-          debugPrint("inside the on deleted");
           _scrollToBottom();
           widget.terminal.keyInput(TerminalKey.backspace);
         },
@@ -347,7 +350,7 @@ class TerminalViewState extends State<TerminalView> {
       _controller.clearSelection();
     } else {
       if (!widget.hardwareKeyboardOnly) {
-        _customTextEditKey.currentState?.requestKeyboard();
+        // _customTextEditKey.currentState?.requestKeyboard();
       } else {
         _focusNode.requestFocus();
       }

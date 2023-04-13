@@ -92,26 +92,9 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
       autofocus: widget.autofocus,
       onKey: _onKey,
       child: widget.child,
-      onKeyEvent: (focus, event) {
-        return _onKeyy(focus, event);
-      },
     );
   }
 
-  void _handleKeyEvent(RawKeyEvent event) {
-    debugPrint("inside the handle key event method");
-    if (event.runtimeType == RawKeyDownEvent) {
-      final key = event.logicalKey;
-      if (key == LogicalKeyboardKey.enter) {
-        // handle Enter key
-      } else if (key == LogicalKeyboardKey.backspace) {
-        debugPrint("inside the backspace");
-      } else {
-        debugPrint("inside the else condition");
-        // handle other keys
-      }
-    }
-  }
 
   bool get hasInputConnection => _connection != null && _connection!.attached;
 
@@ -158,18 +141,6 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
     if (_currentEditingState.composing.isCollapsed) {
       return widget.onKey(focusNode, event);
     }
-
-    return KeyEventResult.skipRemainingHandlers;
-  }
-
-  KeyEventResult _onKeyy(FocusNode focusNode, KeyEvent event) {
-    debugPrint("inside the custom text edit onKey 2222 ====");
-    debugPrint("onKeyy event ==== ${event.logicalKey.keyId}");
-    debugPrint("onKeyy event ==== ${event.physicalKey.debugName}");
-    // debugPrint("event ==== ${event.data.logicalKey.keyLabel}");
-    // if (_currentEditingState.composing.isCollapsed) {
-    //   return widget.onKey(focusNode, event);
-    // }
 
     return KeyEventResult.skipRemainingHandlers;
   }
@@ -260,11 +231,9 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
     widget.onComposing(null);
 
     if (_currentEditingState.text.length < _initEditingState.text.length) {
-      debugPrint("inside the B Condition");
       debugPrint("##########002 ${value.text}");
       widget.onDelete();
     } else {
-      debugPrint("inside the C Condition");
       debugPrint("##########003 ${value.text}");
       final textDelta = _currentEditingState.text.substring(
         _initEditingState.text.length,
@@ -288,7 +257,6 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
 
   @override
   void updateFloatingCursor(RawFloatingCursorPoint point) {
-    debugPrint("inside the AAAA BBBB");
     print('updateFloatingCursor ${point.offset}');
   }
 
