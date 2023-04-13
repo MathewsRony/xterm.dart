@@ -87,12 +87,35 @@ class CustomTextEditState extends State<CustomTextEdit> with TextInputClient {
 
   @override
   Widget build(BuildContext context) {
-    return Focus(
+    return RawKeyboardListener(
       focusNode: widget.focusNode,
-      autofocus: widget.autofocus,
-      onKey: _onKey,
       child: widget.child,
+      autofocus: widget.autofocus,
+      onKey: (event) {
+        _handleKeyEvent(event);
+      },
     );
+    //   Focus(
+    //   focusNode: widget.focusNode,
+    //   autofocus: widget.autofocus,
+    //   onKey: _onKey,
+    //   child: widget.child,
+    // );
+  }
+
+  void _handleKeyEvent(RawKeyEvent event) {
+    debugPrint("inside the handle key event method");
+    if (event.runtimeType == RawKeyDownEvent) {
+      final key = event.logicalKey;
+      if (key == LogicalKeyboardKey.enter) {
+        // handle Enter key
+      } else if (key == LogicalKeyboardKey.backspace) {
+        debugPrint("inside the backspace");
+      } else {
+        debugPrint("inside the else condition");
+        // handle other keys
+      }
+    }
   }
 
   bool get hasInputConnection => _connection != null && _connection!.attached;
