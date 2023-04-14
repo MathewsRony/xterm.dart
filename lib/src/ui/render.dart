@@ -475,7 +475,6 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
 
   /// Paints the cursor based on the current cursor type.
   void _paintCursor(Canvas canvas, Offset offset) {
-    debugPrint("inside the paint cursor AAA");
     final paint = Paint()
       ..color = _theme.cursor
       ..strokeWidth = 1;
@@ -509,9 +508,6 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
   /// Paints the text that is currently being composed in IME to [canvas] at
   /// [offset]. [offset] is usually the cursor position.
   void _paintComposingText(Canvas canvas, Offset offset) {
-    debugPrint("inside the paintComposing texdt ===");
-    debugPrint("offset dx ==== ${offset.dx}");
-    debugPrint("offset dy ==== ${offset.dy}");
     final composingText = _composingText;
     if (composingText == null) {
       return;

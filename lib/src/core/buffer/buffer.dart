@@ -281,7 +281,6 @@ class Buffer {
   }
 
   void cursorGoForward() {
-    print("inside the cursor go forward AAAAAAAA");
     _cursorX = min(_cursorX + 1, viewWidth);
   }
 

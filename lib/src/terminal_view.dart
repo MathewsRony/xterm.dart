@@ -390,7 +390,6 @@ class TerminalViewState extends State<TerminalView> {
   }
 
   KeyEventResult _onKeyEvent(FocusNode focusNode, RawKeyEvent event) {
-    debugPrint("inside the on Key EVent=======asdadasdas");
     // ignore: invalid_use_of_protected_member
     final shortcutResult = _shortcutManager.handleKeypress(
       focusNode.context!,
